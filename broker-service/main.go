@@ -1,7 +1,7 @@
 package main
 
-import "fmt"
+import "github.com/cokidd/binix/broker/api"
 
 func main() {
-	fmt.Printf("TEST\n")
+	api.Start()
 }
