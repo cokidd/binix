@@ -17,12 +17,23 @@ type Auth struct {
 }
 
 func Start() {
-	log.Printf("Start broker service on port %s", webPort)
+	log.Printf("Start Auth service on port %s", webPort)
+
+	conn := data.ConnDB()
+	if conn == nil {
+		log.Panic("Can't connect to Mysql.")
+	}
+
+	auth := Auth{
+		DB:     conn,
+		Models: data.New(conn),
+	}
 
 	srv := &http.Server{
 		Addr:    fmt.Sprintf(":%s", webPort),
-		Handler: Auth.routes(),
+		Handler: auth.routes(),
 	}
+
 	err := srv.ListenAndServe()
 	if err != nil {
 		log.Panic(err)

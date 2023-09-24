@@ -23,7 +23,7 @@ func openDB(dsn string) (*sql.DB, error) {
 	return db, nil
 }
 
-func connDB() *sql.DB {
+func ConnDB() *sql.DB {
 	dsn := os.Getenv("DSN")
 	for {
 		conn, err := openDB(dsn)
